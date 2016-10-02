@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle *ngIf="!selectedItem">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{recipe.title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="ingredient-page">
+    
+    <div text-center>
+    <!--<center>-->
+        <img src="{{recipe.imageUrl}}" class="ingredient-image">
+        <h3>
+            {{recipe.title}}
+        </h3>
+        <p>
+            By: {{recipe.author}}
+        </p>
+    </div>
+    <!--</center>-->
+    <ion-row>
+        <ion-col text-center>
+            <button ion-button icon-left clear class="ingredient-button" (click)="navToNewPage()">
+                <ion-icon name="eye"></ion-icon>
+                Instructions
+            </button>
+        </ion-col>
+        <ion-col text-center>
+            <button ion-button clear class="ingredient-button" (click)="presentPopover($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
+    <ion-list>
+        <ion-list-header>
+            Ingredients
+        </ion-list-header>
+        <ion-item *ngFor="let ingredient of ingredients, let i = index;" (click)="toggleHiddenIngredient(i)" [ngClass]="{'show-overflow': showOverflow[i]}">
+            {{ingredient}}
+        </ion-item>
+    </ion-list>
+
+</ion-content>

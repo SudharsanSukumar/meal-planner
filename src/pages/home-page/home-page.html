@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="recipe-page">
+    <ion-searchbar
+        [(ngModel)]="searchInput"
+        [showCancelButton]="true"
+        (ionInput)="onInput()"
+        [debounce]="750">
+    </ion-searchbar>
+    <ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
+
+        <div text-center>
+        <!--<center>-->
+            <div class="inline-blockify">
+                <img src="{{recipe.imageUrl}}" class="recipe-image">
+            </div>
+            <ion-card-content>
+                <ion-card-title>
+                    {{recipe.title}}
+                </ion-card-title>
+                <p>
+                    By: {{recipe.author}}
+                </p>
+            </ion-card-content>
+        </div>
+        <!--</center>-->
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button icon-left clear>
+                    <ion-icon name="download"></ion-icon>
+                    Recipes
+                </button>
+            </ion-col>
+            <ion-col text-center>
+                <button ion-button icon-left clear>
+                    <ion-icon name="add"></ion-icon>
+                    This Week
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+
+</ion-content>
