@@ -1,12 +1,13 @@
-import {Component} from '@angular/core';
-import {ToastController, NavController, NavParams} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { ToastController, NavController, NavParams } from 'ionic-angular';
 
 //Pages
-import {IngredientPage} from '../ingredient-page/ingredient-page';
+import { IngredientPage } from '../ingredient-page/ingredient-page';
 
 //Services
-import {HttpTransportService} from '../../services/http-transport/http-transport.service';
-import {ParseService} from '../../services/parse/parse.service';
+import { HttpTransportService } from '../../services/http-transport/http-transport.service';
+import { ParseService } from '../../services/parse/parse.service';
+import { StorageService } from '../../services/storage/storage.service';
 
 
 @Component({
@@ -14,22 +15,39 @@ import {ParseService} from '../../services/parse/parse.service';
 })
 export class HomePage {
 
-    private recipes: Array<Object> = [];
-    private defaultRecipes: Array<Object> = [];
-    private numRecipesToLoad: number = 40;
-    private searchInput: string;
+    public recipes: Array<Object> = [];
+    public defaultRecipes: Array<Object> = [];
+    public numRecipesToLoad: number = 40;
+    public searchInput: string;
 
     constructor(
-        private httpTransport: HttpTransportService,
-        private toastCtrl: ToastController,
-        public navCtrl: NavController, 
+        public httpTransport: HttpTransportService,
+        public toastCtrl: ToastController,
+        public navCtrl: NavController,
         public navParams: NavParams,
-        private parseService: ParseService    
+        public parseService: ParseService,
+        public storageService: StorageService
     ) {
         this.landingPageParseRecipes();
     }
 
-    presentToast(message: string, duration: number) {
+    saveToRecipes(recipeNum: number) {
+        event.stopPropagation();
+        this.storageService.getData('savedRecipes').then((data) => {
+            let currentlySaved = [];
+            if (data !== null) {
+                currentlySaved = JSON.parse(data);
+            }
+            
+            currentlySaved.push(this.recipes[recipeNum]);
+            this.storageService.saveData('savedRecipes', JSON.stringify(currentlySaved));
+            this.presentToast('Recipe Saved');
+        });
+        
+    }
+
+    presentToast(message: string, duration?: number) {
+        duration = duration === undefined ? 3000 : duration;
         let toast = this.toastCtrl.create({
             message: message,
             duration: duration
@@ -54,8 +72,7 @@ export class HomePage {
                     let url = 'http://www.foodily.com/r/' + this.parseService.parseByTag(prelimTitle + 'done', '/', 'done');
                     prelimTitle = this.parseService.parseByTag(prelimTitle, '-', '-by');
                     let title = prelimTitle.replace(/-/g, ' ');
-                    title = title.replace(/\w\S*/g, (txt) => 
-                    {
+                    title = title.replace(/\w\S*/g, (txt) => {
                         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
                     });
                     //console.log(author, imageUrl, title, url);
@@ -89,8 +106,8 @@ export class HomePage {
         this.navCtrl.push(IngredientPage, {
             recipe: this.recipes[recipeIndex]
         }, {
-            animate: true
-        });
+                animate: true
+            });
     }
 
     onInput() {
@@ -117,8 +134,7 @@ export class HomePage {
                     let url = 'http://www.foodily.com/r/' + this.parseService.parseByTag(prelimTitle + 'done', '/', 'done');
                     prelimTitle = this.parseService.parseByTag(prelimTitle, '-', '-by');
                     let title = prelimTitle.replace(/-/g, ' ');
-                    title = title.replace(/\w\S*/g, (txt) => 
-                    {
+                    title = title.replace(/\w\S*/g, (txt) => {
                         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
                     });
                     this.recipes.push(
@@ -134,7 +150,7 @@ export class HomePage {
             (err) => {
                 console.log(err);
             },
-            () => {}
+            () => { }
         );
     }
 }

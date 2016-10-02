@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HomePageModule } from '../pages/home-page/home-page.module';
-import { IngredientPageModule } from '../pages/ingredient-page/ingredient-page.module';
+import { PagesModule } from '../pages/pages.module';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -11,8 +10,7 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     CoreModule,
-    HomePageModule,
-    IngredientPageModule,
+    PagesModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

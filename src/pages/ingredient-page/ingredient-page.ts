@@ -12,17 +12,17 @@ import {ParseService} from '../../services/parse/parse.service';
     templateUrl: './ingredient-page.html'
 })
 export class IngredientPage {
-    private recipe: any;
-    private ingredients: string[] = [];
-    private instructionsUrl: string;
-    private showOverflow: boolean[] = [];
+    public recipe: any;
+    public ingredients: string[] = [];
+    public instructionsUrl: string;
+    public showOverflow: boolean[] = [];
 
     constructor(
         public navCtrl: NavController, 
         public navParams: NavParams,
-        private httpTransport: HttpTransportService,
-        private parseService: ParseService,
-        private popoverCtrl: PopoverController
+        public httpTransport: HttpTransportService,
+        public parseService: ParseService,
+        public popoverCtrl: PopoverController
     ) {
         // If we navigated to this page, we will have an item available as a nav param
         this.recipe = navParams.get('recipe');

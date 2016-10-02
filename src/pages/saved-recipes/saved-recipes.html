@@ -3,12 +3,13 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Home</ion-title>
+        <ion-title>Saved Recipes</ion-title>
     </ion-navbar>
 </ion-header>
 
 
 <ion-content padding class="recipe-page">
+    <h3 text-center>Search for a Saved Recipe</h3>
     <ion-searchbar
         [(ngModel)]="searchInput"
         [showCancelButton]="true"
@@ -34,9 +35,8 @@
         <!--</center>-->
         <ion-row>
             <ion-col text-center>
-                <button ion-button icon-left clear (click)="saveToRecipes(i)">
-                    <ion-icon name="download"></ion-icon>
-                    Recipes
+                <button ion-button icon-left clear (click)="removeRecipe(i)">
+                    Remove Recipe
                 </button>
             </ion-col>
             <ion-col text-center>

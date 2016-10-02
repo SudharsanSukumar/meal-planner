@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { HomePage } from '../pages/home-page/home-page';
+import { SavedRecipesPage } from '../pages/saved-recipes/saved-recipes';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class MyApp {
 
         // set our app's pages
         this.pages = [
-            { title: 'Instrument Panel', component: HomePage }
+            { title: 'Home Page', component: HomePage },
+            { title: 'Saved Recipes', component: SavedRecipesPage },
         ];
     }
 
@@ -38,6 +40,11 @@ export class MyApp {
         // close the menu when clicking a link from the menu
         this.menu.close();
         // navigate to the new page if it is not the current page
-        this.nav.setRoot(page.component);
+        if (page.component === HomePage) {
+            this.nav.setRoot(page.component);
+        }
+        else {
+            this.nav.push(page.component);
+        }
     }
 }
