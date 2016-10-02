@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../../app/shared/shared.module';
 import { HomePage } from './home-page';
 import { IonicModule } from 'ionic-angular';
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
+        SharedModule,
         IonicModule.forRoot(HomePage)
     ],
     declarations: [
