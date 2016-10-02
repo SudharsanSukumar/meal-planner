@@ -29,8 +29,3 @@ Meal Planner
     ```
     ionic serve
     ```
-8. Run via Electron
-
-    ```
-    ./node_modules/.bin/electron .
-    ```

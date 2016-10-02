@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {NgClass} from '@angular/common';
 import {NavController, NavParams, PopoverController} from 'ionic-angular';
 
 //Components
