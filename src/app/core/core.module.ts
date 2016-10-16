@@ -2,13 +2,13 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 
 import { Storage } from '@ionic/storage';
 import { HttpTransportService } from '../../services/http-transport/http-transport.service';
-import { ParseService } from '../../services/parse/parse.service';
+import { RecipeService } from '../../services/recipe/recipe.service';
 import { StorageService } from '../../services/storage/storage.service';
 
 @NgModule({
     imports: [],
     providers: [
-        ParseService,
+        RecipeService,
         HttpTransportService,
         Storage,
         StorageService

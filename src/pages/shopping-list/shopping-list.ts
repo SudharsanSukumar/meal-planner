@@ -6,25 +6,25 @@ import { IngredientPage } from '../ingredient-page/ingredient-page';
 
 //Services
 import { StorageService } from '../../services/storage/storage.service';
-import { RecipeService } from '../../services/recipe/recipe.service';
 
 @Component({
-    templateUrl: 'saved-recipes.html'
+    templateUrl: 'shopping-list.html'
 })
-export class SavedRecipesPage {
+export class ShoppingListPage {
     public recipes: Object[] = [];
     public allRecipes: any = [];
-    public searchInput: string = '';
 
     constructor(
         public storageService: StorageService,
         public navCtrl: NavController,
-        public toastCtrl: ToastController,
-        public recipeService: RecipeService
+        public toastCtrl: ToastController
     ) {
-        this.storageService.getData('savedRecipes').then((recipes) => {
-            this.recipes = JSON.parse(recipes);
+        this.storageService.getData('shoppingList').then((recipes) => {
+            if (recipes !== null) {
+                this.recipes = JSON.parse(recipes);
+            }
             this.allRecipes = this.recipes;
+            console.log(this.recipes);
         });
     }
 
@@ -37,6 +37,14 @@ export class SavedRecipesPage {
         toast.present();
     }
 
+    recipeSelect(recipeIndex: number) {
+        this.navCtrl.push(IngredientPage, {
+            recipe: this.recipes[recipeIndex]
+        }, {
+                animate: true
+            });
+    }
+
     removeRecipe(recipeNum: number) {
         event.stopPropagation();
         let recipeToRemove: any = this.recipes[recipeNum];
@@ -46,23 +54,8 @@ export class SavedRecipesPage {
                 this.allRecipes.splice(i, 1);
             }
         }
-        this.storageService.saveData('savedRecipes', JSON.stringify(this.allRecipes));
+        this.storageService.saveData('shoppingList', JSON.stringify(this.allRecipes));
         this.presentToast('Recipe Removed');
-    }
-
-    recipeSelect(recipeIndex: number) {
-        this.navCtrl.push(IngredientPage, {
-            recipe: this.recipes[recipeIndex]
-        }, {
-                animate: true
-            });
-    }
-
-    addToShoppingList(recipeNum: number) {
-        event.stopPropagation();
-        this.recipeService.saveToShoppingList(this.recipes[recipeNum]).then(() => {
-            this.presentToast('Added To Shopping List');
-        });
     }
 
 }

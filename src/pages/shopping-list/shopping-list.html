@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+		<ion-title>Shopping List</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding class="recipe-page">
+
+	<h3 *ngIf="recipes.length === 0" text-center>
+		Your Shopping List Is Empty. Add a Recipe!
+	</h3>
+
+	<ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
+
+
+		<div text-center>
+			<div class="inline-blockify">
+				<img src="{{recipe.imageUrl}}" class="recipe-image">
+			</div>
+			<ion-card-content>
+				<ion-card-title>
+					{{recipe.title}}
+				</ion-card-title>
+				<p>
+					By: {{recipe.author}}
+				</p>
+			</ion-card-content>
+		</div>
+		<ion-row>
+			<ion-col text-center>
+				<button ion-button icon-left clear (click)="removeRecipe(i)">
+                    <ion-icon name="close"></ion-icon>
+                    Remove
+                </button>
+			</ion-col>
+		</ion-row>
+	</ion-card>
+
+</ion-content>

@@ -6,10 +6,10 @@ import {IngredientPopover} from '../../components/ingredient-popover/ingredient-
 
 //Services
 import {HttpTransportService} from '../../services/http-transport/http-transport.service';
-import {ParseService} from '../../services/parse/parse.service';
+import {RecipeService} from '../../services/recipe/recipe.service';
 
 @Component({
-    templateUrl: './ingredient-page.html'
+    templateUrl: 'ingredient-page.html'
 })
 export class IngredientPage {
     public recipe: any;
@@ -21,7 +21,7 @@ export class IngredientPage {
         public navCtrl: NavController, 
         public navParams: NavParams,
         public httpTransport: HttpTransportService,
-        public parseService: ParseService,
+        public recipeService: RecipeService,
         public popoverCtrl: PopoverController
     ) {
         // If we navigated to this page, we will have an item available as a nav param
@@ -35,7 +35,7 @@ export class IngredientPage {
             (data) => {
                 let currentIndex = data.indexOf('class="ings">');
                 while (currentIndex > 0) {
-                    let ingredient = this.parseService.parseByTag(data, '<p>', '</p>', currentIndex);
+                    let ingredient = this.recipeService.parseByTag(data, '<p>', '</p>', currentIndex);
                     currentIndex = data.indexOf('<p>', currentIndex) + 1;
                     if (ingredient.length > 100 || ingredient.length == 0) {
                         continue;
@@ -44,7 +44,7 @@ export class IngredientPage {
                     this.showOverflow.push(false);
                 }
                 currentIndex = data.indexOf('card-prep');
-                this.instructionsUrl = this.parseService.parseByTag(data, '<a href="', '" class', currentIndex);
+                this.instructionsUrl = this.recipeService.parseByTag(data, '<a href="', '" class', currentIndex);
             },
             (err) => {
                 console.log(err);
@@ -62,7 +62,9 @@ export class IngredientPage {
     }
 
     presentPopover(event) {
-        let popover = this.popoverCtrl.create(IngredientPopover);
+        let popover = this.popoverCtrl.create(IngredientPopover, {
+            recipe: this.recipe
+        });
         popover.present({
             ev: event
         });

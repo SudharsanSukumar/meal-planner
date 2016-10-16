@@ -3,7 +3,8 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { HomePage } from '../pages/home-page/home-page';
 import { SavedRecipesPage } from '../pages/saved-recipes/saved-recipes';
-
+import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
+import { SettingsPage } from '../pages/settings/settings';
 
 @Component({
     templateUrl: 'app.html'
@@ -25,6 +26,8 @@ export class MyApp {
         this.pages = [
             { title: 'Home Page', component: HomePage },
             { title: 'Saved Recipes', component: SavedRecipesPage },
+            { title: 'Shopping List', component: ShoppingListPage },
+            { title: 'Settings', component: SettingsPage }
         ];
     }
 

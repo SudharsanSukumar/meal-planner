@@ -19,7 +19,6 @@
     <ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
 
         <div text-center>
-        <!--<center>-->
             <div class="inline-blockify">
                 <img src="{{recipe.imageUrl}}" class="recipe-image">
             </div>
@@ -32,17 +31,17 @@
                 </p>
             </ion-card-content>
         </div>
-        <!--</center>-->
         <ion-row>
             <ion-col text-center>
                 <button ion-button icon-left clear (click)="removeRecipe(i)">
-                    Remove Recipe
+                    <ion-icon name="close"></ion-icon>
+                    Remove
                 </button>
             </ion-col>
             <ion-col text-center>
-                <button ion-button icon-left clear>
+                <button ion-button icon-left clear (click)="addToShoppingList(i)">
                     <ion-icon name="add"></ion-icon>
-                    This Week
+                    Shopping List
                 </button>
             </ion-col>
         </ion-row>
