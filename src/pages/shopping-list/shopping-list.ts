@@ -6,6 +6,7 @@ import { IngredientPage } from '../ingredient-page/ingredient-page';
 
 //Services
 import { StorageService } from '../../services/storage/storage.service';
+import { RecipeService } from '../../services/recipe/recipe.service';
 
 @Component({
     templateUrl: 'shopping-list.html'
@@ -17,7 +18,8 @@ export class ShoppingListPage {
     constructor(
         public storageService: StorageService,
         public navCtrl: NavController,
-        public toastCtrl: ToastController
+        public toastCtrl: ToastController,
+        public recipeService: RecipeService
     ) {
         this.storageService.getData('shoppingList').then((recipes) => {
             if (recipes !== null) {
@@ -26,6 +28,12 @@ export class ShoppingListPage {
             this.allRecipes = this.recipes;
             console.log(this.recipes);
         });
+    }
+
+    clearShoppingList() {
+        this.recipeService.clearShoppingList();
+        this.recipes = [];
+        this.allRecipes = [];
     }
 
     presentToast(message: string, duration?: number) {
@@ -55,7 +63,6 @@ export class ShoppingListPage {
             }
         }
         this.storageService.saveData('shoppingList', JSON.stringify(this.allRecipes));
-        this.presentToast('Recipe Removed');
     }
 
 }

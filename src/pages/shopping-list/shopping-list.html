@@ -7,11 +7,16 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding class="recipe-page">
+<ion-content padding class="recipe-page" text-center>
+	<div text-center padding>
+		<h3 *ngIf="recipes.length === 0" text-center>
+			Your Shopping List Is Empty. Add a Recipe!
+		</h3>
 
-	<h3 *ngIf="recipes.length === 0" text-center>
-		Your Shopping List Is Empty. Add a Recipe!
-	</h3>
+		<button ion-button *ngIf="recipes.length !== 0" (click)="clearShoppingList()">
+			<span>Clear Shopping List</span>
+		</button>
+	</div>
 
 	<ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
 

@@ -19,6 +19,7 @@ export class HomePage {
     public defaultRecipes: Array<Object> = [];
     public numRecipesToLoad: number = 40;
     public searchInput: string = '';
+    public loadingRecipes: boolean = false;
 
     constructor(
         public httpTransport: HttpTransportService,
@@ -34,14 +35,14 @@ export class HomePage {
     saveToRecipes(recipeNum: number) {
         event.stopPropagation();
         this.recipeService.saveToRecipes(this.recipes[recipeNum]).then((data) => {
-            this.presentToast('Recipe Saved', 1000);
+            this.presentToast('Recipe Saved', 500);
         });
     }
 
     addToShoppingList(recipeNum: number) {
         event.stopPropagation();
         this.recipeService.saveToShoppingList(this.recipes[recipeNum]).then(() => {
-            this.presentToast('Added To Shopping List', 1000);
+            this.presentToast('Added To Shopping List', 500);
         });
     }
 
@@ -55,6 +56,7 @@ export class HomePage {
     }
 
     landingPageParseRecipes() {
+        this.loadingRecipes = true;
         this.recipes = [];
         this.httpTransport.send('GET', 'https://crossorigin.me/http://www.foodily.com/').subscribe(
             (data) => {
@@ -92,6 +94,7 @@ export class HomePage {
                         }
                     );
                 }
+                this.loadingRecipes = false;
             },
             (err) => {
                 console.log(err);

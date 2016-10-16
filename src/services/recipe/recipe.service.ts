@@ -51,4 +51,8 @@ export class RecipeService {
         return promise;
     }
 
+    clearShoppingList() {
+        this.storageService.removeDataByKey('shoppingList');
+    }
+
 }

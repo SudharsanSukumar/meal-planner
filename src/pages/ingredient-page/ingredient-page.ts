@@ -16,6 +16,7 @@ export class IngredientPage {
     public ingredients: string[] = [];
     public instructionsUrl: string;
     public showOverflow: boolean[] = [];
+    public loadingRecipes: boolean = false;
 
     constructor(
         public navCtrl: NavController, 
@@ -31,6 +32,7 @@ export class IngredientPage {
 
 
     getPageData(pageUrl: string) {
+        this.loadingRecipes = true;
         this.httpTransport.send('GET', 'https://crossorigin.me/' + pageUrl).subscribe(
             (data) => {
                 let currentIndex = data.indexOf('class="ings">');
@@ -45,6 +47,7 @@ export class IngredientPage {
                 }
                 currentIndex = data.indexOf('card-prep');
                 this.instructionsUrl = this.recipeService.parseByTag(data, '<a href="', '" class', currentIndex);
+                this.loadingRecipes = false;
             },
             (err) => {
                 console.log(err);

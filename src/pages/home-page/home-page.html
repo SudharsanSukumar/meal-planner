@@ -8,13 +8,18 @@
 </ion-header>
 
 
-<ion-content padding class="recipe-page">
-    <ion-searchbar
+<ion-content padding class="recipe-page" text-center>
+    <ion-searchbar padding
         [(ngModel)]="searchInput"
         [showCancelButton]="true"
         (ionInput)="onInput()"
         [debounce]="750">
     </ion-searchbar>
+
+    <div text-center *ngIf="loadingRecipes" padding>
+        <span>Loading Recipes...</span><ion-spinner name="crescent"></ion-spinner>
+    </div>
+
     <ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
 
         <div text-center>

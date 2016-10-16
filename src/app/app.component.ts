@@ -43,7 +43,7 @@ export class MyApp {
         // close the menu when clicking a link from the menu
         this.menu.close();
         // navigate to the new page if it is not the current page
-        if (page.component === HomePage) {
+        if (page.component === HomePage || page.component === SavedRecipesPage || page.component === ShoppingListPage) {
             this.nav.setRoot(page.component);
         }
         else {

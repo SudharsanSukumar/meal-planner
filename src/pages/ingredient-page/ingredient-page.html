@@ -10,7 +10,6 @@
 <ion-content padding class="ingredient-page">
     
     <div text-center>
-    <!--<center>-->
         <img src="{{recipe.imageUrl}}" class="ingredient-image">
         <h3>
             {{recipe.title}}
@@ -19,7 +18,6 @@
             By: {{recipe.author}}
         </p>
     </div>
-    <!--</center>-->
     <ion-row>
         <ion-col text-center>
             <button ion-button icon-left clear class="ingredient-button" (click)="navToNewPage()">
@@ -33,10 +31,14 @@
             </button>
         </ion-col>
     </ion-row>
+
     <ion-list>
         <ion-list-header>
             Ingredients
         </ion-list-header>
+        <div text-center *ngIf="loadingRecipes" padding>
+            <ion-spinner name="crescent"></ion-spinner>
+        </div>
         <ion-item *ngFor="let ingredient of ingredients, let i = index;" (click)="toggleHiddenIngredient(i)" [ngClass]="{'show-overflow': showOverflow[i]}">
             {{ingredient}}
         </ion-item>

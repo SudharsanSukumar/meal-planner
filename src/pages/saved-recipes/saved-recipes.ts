@@ -47,7 +47,6 @@ export class SavedRecipesPage {
             }
         }
         this.storageService.saveData('savedRecipes', JSON.stringify(this.allRecipes));
-        this.presentToast('Recipe Removed');
     }
 
     recipeSelect(recipeIndex: number) {
@@ -61,7 +60,7 @@ export class SavedRecipesPage {
     addToShoppingList(recipeNum: number) {
         event.stopPropagation();
         this.recipeService.saveToShoppingList(this.recipes[recipeNum]).then(() => {
-            this.presentToast('Added To Shopping List');
+            this.presentToast('Added To Shopping List', 500);
         });
     }
 
