@@ -21,6 +21,7 @@ export class ShoppingListPage {
         public toastCtrl: ToastController,
         public recipeService: RecipeService
     ) {
+        console.log('shopping list constructor');
         this.storageService.getData('shoppingList').then((recipes) => {
             if (recipes !== null) {
                 this.recipes = JSON.parse(recipes);
@@ -34,6 +35,7 @@ export class ShoppingListPage {
         this.recipeService.clearShoppingList();
         this.recipes = [];
         this.allRecipes = [];
+        console.log('clearing shopping list');
     }
 
     presentToast(message: string, duration?: number) {

@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content padding class="recipe-page" text-center>
+
 	<div text-center padding>
 		<h3 *ngIf="recipes.length === 0" text-center>
 			Your Shopping List Is Empty. Add a Recipe!
@@ -19,7 +20,6 @@
 	</div>
 
 	<ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
-
 
 		<div text-center>
 			<div class="inline-blockify">
@@ -42,6 +42,7 @@
                 </button>
 			</ion-col>
 		</ion-row>
+		
 	</ion-card>
 
 </ion-content>
