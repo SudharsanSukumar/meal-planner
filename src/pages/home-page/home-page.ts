@@ -104,7 +104,7 @@ export class HomePage {
 
     }
 
-    recipeSelect(event, recipeIndex: number) {
+    recipeSelect(event, recipeIndex: number) { 
         this.navCtrl.push(IngredientPage, {
             recipe: this.recipes[recipeIndex]
         }, {
