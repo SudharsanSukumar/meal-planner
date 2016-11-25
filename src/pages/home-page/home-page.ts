@@ -32,14 +32,14 @@ export class HomePage {
         this.landingPageParseRecipes();
     }
 
-    saveToRecipes(recipeNum: number) {
+    saveToRecipes(event, recipeNum: number) {
         event.stopPropagation();
         this.recipeService.saveToRecipes(this.recipes[recipeNum]).then((data) => {
             this.presentToast('Recipe Saved', 500);
         });
     }
 
-    addToShoppingList(recipeNum: number) {
+    addToShoppingList(event, recipeNum: number) {
         event.stopPropagation();
         this.recipeService.saveToShoppingList(this.recipes[recipeNum]).then(() => {
             this.presentToast('Added To Shopping List', 500);
@@ -104,7 +104,7 @@ export class HomePage {
 
     }
 
-    recipeSelect(recipeIndex: number) {
+    recipeSelect(event, recipeIndex: number) {
         this.navCtrl.push(IngredientPage, {
             recipe: this.recipes[recipeIndex]
         }, {

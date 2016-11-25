@@ -20,7 +20,7 @@
         <span>Loading Recipes...</span><ion-spinner name="crescent"></ion-spinner>
     </div>
 
-    <ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect(i)" class="recipe-card">
+    <ion-card *ngFor="let recipe of recipes, let i = index;" (click)="recipeSelect($event, i)" class="recipe-card">
 
         <div text-center>
             <div class="inline-blockify">
@@ -37,13 +37,13 @@
         </div>
         <ion-row>
             <ion-col text-center>
-                <button ion-button icon-left clear (click)="saveToRecipes(i)">
+                <button ion-button icon-left clear (click)="saveToRecipes($event, i)">
                     <ion-icon name="download"></ion-icon>
                     Recipes
                 </button>
             </ion-col>
             <ion-col text-center>
-                <button ion-button icon-left clear (click)="addToShoppingList(i)">
+                <button ion-button icon-left clear (click)="addToShoppingList($event, i)">
                     <ion-icon name="add"></ion-icon>
                     Shopping List
                 </button>

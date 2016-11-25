@@ -28,6 +28,35 @@ export class SavedRecipesPage {
         });
     }
 
+    onInput() {
+        if (this.searchInput === '') {
+            this.recipes = this.allRecipes;
+            return;
+        }
+        this.recipes = [];
+        let matchingRecipes: Object[] = [];
+        let wordsToMatch: string[] = this.searchInput.split(' ');
+        for (let i = 0; i < this.allRecipes.length; i++) {
+            let tempRecipe = this.allRecipes[i];
+            tempRecipe.title = tempRecipe.title.toLowerCase();
+            let recipePriority = 0;
+            for (let word of wordsToMatch) {
+                word = word.toLowerCase();
+                if (this.allRecipes[i].title.indexOf(word) !== -1) {
+                    recipePriority++;
+                }
+            }
+            if (recipePriority !== 0) {
+                tempRecipe['priority'] = recipePriority;
+                matchingRecipes.push(tempRecipe);
+            }
+        }
+        matchingRecipes.sort((a: any, b: any) => {
+            return parseFloat(b.priority) - parseFloat(a.priority);
+        });
+        this.recipes = matchingRecipes;
+    }
+
     presentToast(message: string, duration?: number) {
         duration = duration === undefined ? 3000 : duration;
         let toast = this.toastCtrl.create({
